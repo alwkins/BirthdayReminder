@@ -15,12 +15,10 @@ export interface BirthdayListItemProps {
 export const BirthdayListItem = (props: BirthdayListItemProps) => {
   const { name, birthday } = props;
   const today = new Date();
-  const birthdayInThisYr = birthday.setFullYear(2021);
   // TODO Write unit test
   // valueOf() returns ms, convert to days
   // TODO Add floor if want whole days
   const daysUntil = (birthday.valueOf() - today.valueOf()) / 3600000 / 24;
-  console.log(daysUntil)
   const edgeMargin = wp('0.3%')
   const sideBoxWidth = wp('17%')
   const middleBoxWidth = wp('100%') - 2 * sideBoxWidth

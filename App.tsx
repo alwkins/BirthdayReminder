@@ -8,12 +8,13 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import { AddEditView } from './src/components/pages/AddEditView';
 import { BirthdaysView } from './src/components/pages/BirthdaysView';
 
 const App = () => {
 
   return (
-    <BirthdaysView />
+    <AddEditView />
   );
 };
 
