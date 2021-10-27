@@ -16,9 +16,9 @@ export const BirthdayListItem = (props: BirthdayListItemProps) => {
   const { name, birthday } = props;
   const today = new Date();
   // TODO Write unit test
-  // valueOf() returns ms, convert to days
   // TODO Add floor if want whole days
-  const daysUntil = (birthday.valueOf() - today.valueOf()) / 3600000 / 24;
+  const birthdayThisYear = birthday.setFullYear(today.getFullYear());
+  const daysUntil = (birthdayThisYear.valueOf() - today.valueOf()) / 3600000 / 24; // valueOf() returns ms, convert to days
   const edgeMargin = wp('0.3%')
   const sideBoxWidth = wp('17%')
   const middleBoxWidth = wp('100%') - 2 * sideBoxWidth
@@ -27,6 +27,8 @@ export const BirthdayListItem = (props: BirthdayListItemProps) => {
       flexDirection='row'
       borderBottomWidth='2px'
       borderColor={defaultTheme.color.superLightGray}>
+
+      {/* Left: Birthday Date */}
       <FlexBox
         flexDirection='column'
         alignItems='center'
@@ -45,6 +47,8 @@ export const BirthdayListItem = (props: BirthdayListItemProps) => {
           fontWeight='800'>{birthday.getUTCDate()}
         </Text>
       </FlexBox>
+
+      {/* Center: Name */}
       <FlexBox
         flexDirection='row'
         alignItems='center'
@@ -56,6 +60,8 @@ export const BirthdayListItem = (props: BirthdayListItemProps) => {
           {name}
       </Text>
       </FlexBox>
+
+      {/* Right: Days Until */}
       <FlexBox
         flexDirection='column'
         alignItems='center'
@@ -76,6 +82,7 @@ export const BirthdayListItem = (props: BirthdayListItemProps) => {
           DAYS
           </Text>
       </FlexBox>
+      
     </FlexBox>
   );
 }

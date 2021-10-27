@@ -10,26 +10,28 @@ import { Text } from '../styled-components/Text';
 
 export const Header = () => {
   // TODO Find a more robust way to space items out on bar
+  const sideMarginWidth = wp('3.4%')
+  const bottomGap = hp('2%')
   return (
     <FlexBox
       paddingTop={hp('2.7%')}
       flexDirection='row'
-      alignItems='center'
+      alignItems='flex-end'
       backgroundColor={defaultTheme.color.teal}
       height={hp('11.5%')}>
-      <Box marginLeft={wp('3.4%')}>
+      <Box position={'absolute'} left={sideMarginWidth} bottom={bottomGap}>
         <MaterialCommunityIcon
           name={'cog'} size={27}
           color={defaultTheme.color.white} />
       </Box>
-      <Box marginLeft={wp('25%')}>
+      <FlexBox width={wp('100%')} alignItems='center' paddingBottom={bottomGap}>
         <Text
           fontFamily={defaultTheme.fontFamily.roboto}
           fontSize={defaultTheme.fontSize.title}
           fontWeight='400'
           color={defaultTheme.color.white}>Birthdays</Text>
-      </Box>
-      <Box marginLeft={wp('25%')}>
+      </FlexBox>
+      <Box position={'absolute'} right={sideMarginWidth} bottom={bottomGap}>
         <MaterialCommunityIcon name={'plus'} size={27} color={defaultTheme.color.white} />
       </Box>
     </FlexBox>
