@@ -8,13 +8,13 @@ import { defaultTheme } from '../defaultTheme';
 import { Header } from '../molecules/Header';
 import { Box, FlexBox } from '../styled-components/Box';
 import { Text } from '../styled-components/Text';
-import WheelPicker from '../atoms/WheelPicker';
+import { MONTHS_SHORT, DAYS_PER_MONTH } from '../util';
+import { BirthdayPicker } from '../molecules/BirthdayPicker';
 
 export const AddEditView = () => {
   const [text, onChangeText] = React.useState("Albert Einstein");
-  const [number, onChangeNumber] = React.useState(null);
-    const marginLeft = wp('3.5%')
-    const styles = {
+  const marginLeft = wp('3.5%')
+  const styles = { // TODO Make font medium-large
     input: {
       height: 40,
       margin: marginLeft,
@@ -24,13 +24,11 @@ export const AddEditView = () => {
       padding: 10,
     },
   }
-  const [selectedItem, setSelectedItem ] = useState(2);
-  const [itemList , setItemList ] = useState(['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5']);
   const sectionLabel = (labelText: string, labelColor: string) => (
     <Box marginLeft={marginLeft}>
       <Text fontFamily={defaultTheme.fontFamily.roboto}
         color={labelColor}
-        fontSize={defaultTheme.fontSize.label}
+        fontSize={defaultTheme.fontSize.mlg}
         fontWeight='600'>
         {labelText}
       </Text>
@@ -46,7 +44,9 @@ export const AddEditView = () => {
         onChangeText={onChangeText}
         value={text} />
       {sectionLabel("Birthday", defaultTheme.color.royalBlue)}
-      <WheelPicker />
+      <FlexBox flexDirection='row'>
+        <BirthdayPicker initialItems={MONTHS_SHORT} />
+      </FlexBox>
     </View>
   )
 }

@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 
 import Picker from '@gregfrench/react-native-wheel-picker'
 var PickerItem = Picker.Item;
 
-const WheelPicker = () => {
-  const [selectedItem, setSelectedItem ] = useState(2);
-  const [itemList , setItemList ] = useState(['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5']);
+export interface WheelPickerProps {
+  initialItems: Array<string>;
+}
+
+const WheelPicker = (props: WheelPickerProps) => {
+  const { initialItems } = props;
+  const [selectedItem, setSelectedItem ] = useState(5); // Start on June
+  const [itemList , setItemList ] = useState(initialItems);
 
   return (
     <View>
