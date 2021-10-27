@@ -14,7 +14,8 @@ import { BirthdaysView } from './src/components/pages/BirthdaysView';
 const App = () => {
 
   return (
-    <AddEditView />
+    // <AddEditView />
+    <BirthdaysView />
   );
 };
 
