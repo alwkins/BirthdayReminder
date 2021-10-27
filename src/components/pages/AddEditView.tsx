@@ -45,7 +45,7 @@ export const AddEditView = () => {
         value={text} />
       {sectionLabel("Birthday", defaultTheme.color.royalBlue)}
       <FlexBox flexDirection='row'>
-        <BirthdayPicker initialItems={MONTHS_SHORT} />
+        <BirthdayPicker />
       </FlexBox>
     </View>
   )

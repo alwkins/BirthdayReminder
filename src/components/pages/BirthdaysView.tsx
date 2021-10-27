@@ -15,6 +15,10 @@ export const BirthdaysView = () => {
     {
       name: "Wollum Wadkins",
       birthday: new Date("1992-11-26")
+    },
+    {
+      name: "Hunter Wadkins",
+      birthday: new Date("2011-12-15")
     }
   ]
   return (
@@ -33,10 +37,11 @@ export const BirthdaysView = () => {
           </Text>
         </Box>
         {birthdayData.map(
-          (data) => (
+          (data, index) => (
             <BirthdayListItem
               name={data.name}
-              birthday={data.birthday} />
+              birthday={data.birthday} 
+              key={index} />
           )
         )}
       </ScrollView>

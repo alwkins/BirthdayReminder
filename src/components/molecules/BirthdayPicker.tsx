@@ -14,7 +14,7 @@ export const BirthdayPicker = (props: BirthdayPickerProps) => {
   const [monthList, setMonthList] = useState(MONTHS_SHORT);
   const [selectedDay, setSelectedDay] = useState(14); // Start on day 15
   const [dayList, setDayList] = useState(DAYS_PER_MONTH.map((e) => e.toString()));
-  const onMonthChange = (index) => {
+  const onMonthChange = (index: number) => {
     setSelectedMonth(index);
     const newNumDays = DAYS_PER_MONTH[index];
     const newDayList = [ ...Array(newNumDays).keys() ].map( i => i+1);
