@@ -12,6 +12,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import { birthdayEntry } from '../util';
+import DataStorageStore from '../../store/dataStorageStore';
 
 export const BirthdaysNavContainer = (props: NativeStackScreenProps<RootStackParamList, 'Birthdays'>) => {
   const { navigation, route } = props;
@@ -22,10 +23,12 @@ export const BirthdaysNavContainer = (props: NativeStackScreenProps<RootStackPar
 
 export interface BirthdaysViewProps {
   navigation?: NativeStackNavigationProp<RootStackParamList, 'Birthdays'>;
-  birthdays: Array<birthdayEntry>;
 }
 export const BirthdaysView = (props: BirthdaysViewProps) => {
-  const { navigation, birthdays } = props;
+  const { navigation } = props;
+  const dataStore = DataStorageStore.getInstance();
+  dataStore.loadBirthdays();
+  let birthdays: Array<birthdayEntry> = dataStore.getBirthdays(); 
   const navToAdd = () => {
     if (navigation) { navigation.push('AddEdit') }
   }

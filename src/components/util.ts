@@ -45,5 +45,9 @@ export const testBirthdayData: Array<birthdayEntry> = [
   {
     name: "Hunter Wadkins",
     birthday: new Date("2011-12-15")
+  },
+  {
+    name: "Franky Wadkins",
+    birthday: new Date("2017-1-12")
   }
 ]

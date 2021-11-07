@@ -26,7 +26,7 @@ export const RootStackScreens = () => {
   return (
     <NavigationContainer>
       <RootStack.Navigator screenOptions={{ headerShown: false }}>
-        <RootStack.Screen name="Birthdays" component={BirthdaysNavContainer} initialParams={{birthdays: testBirthdayData}} />
+        <RootStack.Screen name="Birthdays" component={BirthdaysNavContainer} />
         <RootStack.Screen name="AddEdit" component={AddEditNavContainer} />
       </RootStack.Navigator>
     </NavigationContainer>
