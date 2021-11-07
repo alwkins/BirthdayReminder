@@ -33,7 +33,7 @@ export const BirthdaysView = (props: BirthdaysViewProps) => {
   }
   return (
     <View>
-      <Header onRightPress={navToAdd} leftIcon='cog' rightIcon='plus' />
+      <Header text="Birthdays" onRightPress={navToAdd} leftIcon='cog' rightIcon='plus' />
       <ScrollView>
         <Box
           borderBottomWidth={hp('1.2%')}

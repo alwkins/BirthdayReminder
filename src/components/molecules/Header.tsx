@@ -10,6 +10,7 @@ import { Text } from '../styled-components/Text';
 import { TouchableOpacity } from 'react-native';
 
 export interface HeaderProps {
+  text: string;
   onRightPress?: () => void;
   onLeftPress?: () => void;
   leftIcon?: iconNames;
@@ -19,7 +20,7 @@ export interface HeaderProps {
 export type iconNames = 'cog'| 'plus'| 'chevron-left';
 
 export const Header = (props: HeaderProps) => {
-  const { onRightPress, onLeftPress, leftIcon, rightIcon } = props;
+  const { text, onRightPress, onLeftPress, leftIcon, rightIcon } = props;
   const sideMarginWidth = wp('3.4%')
   const bottomGap = hp('2%')
   return (
@@ -34,7 +35,7 @@ export const Header = (props: HeaderProps) => {
           fontFamily={defaultTheme.fontFamily.roboto}
           fontSize={defaultTheme.fontSize.title}
           fontWeight='400'
-          color={defaultTheme.color.white}>Birthdays</Text>
+          color={defaultTheme.color.white}>{text}</Text>
       </FlexBox>
       <Box position={'absolute'} left={sideMarginWidth} bottom={bottomGap}>
         {leftIcon ?

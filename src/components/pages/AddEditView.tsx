@@ -60,7 +60,7 @@ export const AddEditView = (props: AddEditViewProps) => {
   )
   return (
     <View>
-      <Header onRightPress={navBack} onLeftPress={navBack} leftIcon='chevron-left' />
+      <Header text="Add Birthday" onRightPress={navBack} onLeftPress={navBack} leftIcon='chevron-left' />
       <Box height={hp('1.7%')}></Box>
       {sectionLabel("Name", defaultTheme.color.plantGreen)}
       <TextInput
