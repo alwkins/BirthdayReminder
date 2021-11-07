@@ -8,8 +8,13 @@ import { FlexBox, Box } from '../styled-components/Box';
 import { MaterialCommunityIcon } from '../icons/materialCommunityIcon';
 import { Text } from '../styled-components/Text';
 
-export const Header = () => {
-  // TODO Find a more robust way to space items out on bar
+export interface HeaderProps {
+  onRightPress?: () => void;
+  onLeftPress?: () => void;
+}
+
+export const Header = (props: HeaderProps) => {
+  const { onRightPress } = props;
   const sideMarginWidth = wp('3.4%')
   const bottomGap = hp('2%')
   return (
@@ -32,7 +37,11 @@ export const Header = () => {
           color={defaultTheme.color.white}>Birthdays</Text>
       </FlexBox>
       <Box position={'absolute'} right={sideMarginWidth} bottom={bottomGap}>
-        <MaterialCommunityIcon name={'plus'} size={27} color={defaultTheme.color.white} />
+        <MaterialCommunityIcon
+          onPress={onRightPress}
+          name={'plus'}
+          size={27}
+          color={defaultTheme.color.white} />
       </Box>
     </FlexBox>
   )

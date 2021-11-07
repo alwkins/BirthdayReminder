@@ -10,12 +10,17 @@ import { RootStackParamList } from '../../../App';
 
 export const BirthdaysNavContainer = (props: NativeStackScreenProps<RootStackParamList, 'Birthdays'>) => {
   const { navigation, route } = props;
-    return (
-      <BirthdaysView {...route.params} navigation={navigation} />
-    )
-  }
+  return (
+    <BirthdaysView {...route.params} navigation={navigation} />
+  )
+}
 
-export const BirthdaysView = () => {
+export interface BirthdaysViewProps {
+  navigation: NativeStackNavigationProp<RootStackParamList, 'Birthdays'>;
+}
+
+export const BirthdaysView = (props: BirthdaysViewProps) => {
+  const { navigation } = props;
   const birthdayData = [
     {
       name: "Alsion Wadkins",
@@ -30,9 +35,12 @@ export const BirthdaysView = () => {
       birthday: new Date("2011-12-15")
     }
   ]
+  const navToAdd = () => {
+    navigation.push('AddEdit')
+  }
   return (
     <View>
-      <Header />
+      <Header onRightPress={navToAdd} />
       <ScrollView>
         <Box
           borderBottomWidth='2px'
