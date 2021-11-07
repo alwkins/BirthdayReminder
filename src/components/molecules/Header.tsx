@@ -12,10 +12,14 @@ import { TouchableOpacity } from 'react-native';
 export interface HeaderProps {
   onRightPress?: () => void;
   onLeftPress?: () => void;
+  leftIcon?: iconNames;
+  rightIcon?: iconNames;
 }
 
+export type iconNames = 'cog'| 'plus'| 'chevron-left';
+
 export const Header = (props: HeaderProps) => {
-  const { onRightPress, onLeftPress } = props;
+  const { onRightPress, onLeftPress, leftIcon, rightIcon } = props;
   const sideMarginWidth = wp('3.4%')
   const bottomGap = hp('2%')
   return (
@@ -25,26 +29,28 @@ export const Header = (props: HeaderProps) => {
       alignItems='flex-end'
       backgroundColor={defaultTheme.color.teal}
       height={hp('11.5%')}>
-      <FlexBox backgroundColor={'pink'} width={wp('100%')} alignItems='center' paddingBottom={bottomGap}>
+      <FlexBox width={wp('100%')} alignItems='center' paddingBottom={bottomGap}>
         <Text
           fontFamily={defaultTheme.fontFamily.roboto}
           fontSize={defaultTheme.fontSize.title}
           fontWeight='400'
           color={defaultTheme.color.white}>Birthdays</Text>
       </FlexBox>
-      <Box backgroundColor={'blue'} position={'absolute'} left={sideMarginWidth} bottom={bottomGap}>
-        <MaterialCommunityIcon
-          onPress={onLeftPress}
-          name={'cog'}
-          size={27}
-          color={defaultTheme.color.white} />
+      <Box position={'absolute'} left={sideMarginWidth} bottom={bottomGap}>
+        <TouchableOpacity activeOpacity={0.5} onPress={onLeftPress}>
+          <MaterialCommunityIcon
+            name={leftIcon}
+            size={27}
+            color={defaultTheme.color.white} />
+        </TouchableOpacity>
       </Box>
       <Box position={'absolute'} right={sideMarginWidth} bottom={bottomGap}>
-        <MaterialCommunityIcon
-          onPress={onRightPress}
-          name={'plus'}
-          size={27}
-          color={defaultTheme.color.white} />
+        <TouchableOpacity activeOpacity={0.5} onPress={onRightPress}>
+          <MaterialCommunityIcon
+            name={rightIcon}
+            size={27}
+            color={defaultTheme.color.white} />
+        </TouchableOpacity>
       </Box>
     </FlexBox>
   )
