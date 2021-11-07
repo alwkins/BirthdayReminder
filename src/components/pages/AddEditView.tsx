@@ -10,6 +10,16 @@ import { Box, FlexBox } from '../styled-components/Box';
 import { Text } from '../styled-components/Text';
 import { MONTHS_SHORT, DAYS_PER_MONTH } from '../util';
 import { BirthdayPicker } from '../molecules/BirthdayPicker';
+import { RootStackParamList } from '../../../App';
+import { NativeStackScreenProps, NativeStackNavigationProp } from '@react-navigation/native-stack';
+
+
+export const AddEditNavContainer = (props: NativeStackScreenProps<RootStackParamList, 'Birthdays'>) => {
+  const { navigation, route } = props;
+    return (
+      <AddEditView {...route.params} navigation={navigation} />
+    )
+  }
 
 export const AddEditView = () => {
   const [text, onChangeText] = React.useState("Albert Einstein");
