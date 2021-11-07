@@ -12,6 +12,7 @@ import { MONTHS_SHORT, DAYS_PER_MONTH, testBirthdayData } from '../util';
 import { BirthdayPicker } from '../molecules/BirthdayPicker';
 import { RootStackParamList } from '../../../App';
 import { NativeStackScreenProps, NativeStackNavigationProp } from '@react-navigation/native-stack';
+import DataStorageStore from '../../store/dataStorageStore';
 
 export const AddEditNavContainer = (props: NativeStackScreenProps<RootStackParamList, 'AddEdit'>) => {
   const { navigation, route } = props;
@@ -28,6 +29,7 @@ export interface AddEditViewProps {
 export const AddEditView = (props: AddEditViewProps) => {
   const { navigation, contactEditing } = props;
   const [text, onChangeText] = React.useState(contactEditing);
+  const dataStore = DataStorageStore.getInstance();
   const marginLeft = wp('3.5%')
   const styles = { // TODO Make font medium-large
     input: {
@@ -40,9 +42,10 @@ export const AddEditView = (props: AddEditViewProps) => {
     },
   }
   const navBack = () => {
-    // TODO Add save new birthday here
+    dataStore.addBirthday({name: text, birthday: new Date})
+    // TODO Add toast to say saved
     if (navigation) {
-      navigation.push('Birthdays', { birthdays: testBirthdayData })
+      navigation.push('Birthdays')
     }
   }
   const sectionLabel = (labelText: string, labelColor: string) => (

@@ -13,6 +13,7 @@ import { BirthdaysNavContainer, BirthdaysViewProps } from './src/components/page
 import { AddEditNavContainer, AddEditViewProps } from './src/components/pages/AddEditView';
 import { NavigationContainer } from '@react-navigation/native';
 import { birthdayEntry, testBirthdayData } from './src/components/util';
+import DataStorageStore from './src/store/dataStorageStore';
 
 export type RootStackParamList = {
   Birthdays: BirthdaysViewProps;
@@ -20,6 +21,8 @@ export type RootStackParamList = {
 }
 
 export const RootStackScreens = () => {
+  // Initialize data storage store
+  DataStorageStore.getInstance().loadBirthdays();
 
   const RootStack = createNativeStackNavigator<RootStackParamList>();
 

@@ -27,7 +27,6 @@ export interface BirthdaysViewProps {
 export const BirthdaysView = (props: BirthdaysViewProps) => {
   const { navigation } = props;
   const dataStore = DataStorageStore.getInstance();
-  dataStore.loadBirthdays();
   let birthdays: Array<birthdayEntry> = dataStore.getBirthdays(); 
   const navToAdd = () => {
     if (navigation) { navigation.push('AddEdit') }
