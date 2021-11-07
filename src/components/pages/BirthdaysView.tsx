@@ -7,6 +7,10 @@ import { Header } from "../molecules/Header"
 import { Box } from '../styled-components/Box';
 import { Text } from '../styled-components/Text';
 import { RootStackParamList } from '../../../App';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 export const BirthdaysNavContainer = (props: NativeStackScreenProps<RootStackParamList, 'Birthdays'>) => {
   const { navigation, route } = props;
@@ -43,9 +47,10 @@ export const BirthdaysView = (props: BirthdaysViewProps) => {
       <Header onRightPress={navToAdd} />
       <ScrollView>
         <Box
-          borderBottomWidth='2px'
+          borderBottomWidth={hp('1.2%')}
           borderColor={defaultTheme.color.superLightGray}
-          padding='4px'>
+          marginTop={'8px'}
+          marginLeft={'6px'} >
           <Text
             color={defaultTheme.color.darkPurple}
             fontSize={defaultTheme.fontSize.m}

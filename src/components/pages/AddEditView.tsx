@@ -14,15 +14,21 @@ import { RootStackParamList } from '../../../App';
 import { NativeStackScreenProps, NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 
-export const AddEditNavContainer = (props: NativeStackScreenProps<RootStackParamList, 'Birthdays'>) => {
+export const AddEditNavContainer = (props: NativeStackScreenProps<RootStackParamList, 'AddEdit'>) => {
   const { navigation, route } = props;
-    return (
-      <AddEditView {...route.params} navigation={navigation} />
-    )
-  }
+  return (
+    <AddEditView {...route.params} navigation={navigation} />
+  )
+}
 
-export const AddEditView = () => {
-  const [text, onChangeText] = React.useState("Albert Einstein");
+export interface AddEditViewProps {
+  navigation: NativeStackNavigationProp<RootStackParamList, 'AddEdit'>
+  contactEditing?: string;
+}
+
+export const AddEditView = (props: AddEditViewProps) => {
+  const { navigation, contactEditing } = props;
+  const [text, onChangeText] = React.useState(contactEditing);
   const marginLeft = wp('3.5%')
   const styles = { // TODO Make font medium-large
     input: {
@@ -33,6 +39,9 @@ export const AddEditView = () => {
       borderColor: defaultTheme.color.lightGray,
       padding: 10,
     },
+  }
+  const navBack = () => {
+    navigation.push('Birthdays')
   }
   const sectionLabel = (labelText: string, labelColor: string) => (
     <Box marginLeft={marginLeft}>
@@ -46,7 +55,7 @@ export const AddEditView = () => {
   )
   return (
     <View>
-      <Header />
+      <Header onRightPress={navBack} onLeftPress={navBack} />
       <Box height={hp('1.7%')}></Box>
       {sectionLabel("Name", defaultTheme.color.plantGreen)}
       <TextInput

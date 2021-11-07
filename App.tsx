@@ -9,13 +9,13 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-import { BirthdaysNavContainer } from './src/components/pages/BirthdaysView';
-import { AddEditNavContainer } from './src/components/pages/AddEditView';
+import { BirthdaysNavContainer, BirthdaysViewProps } from './src/components/pages/BirthdaysView';
+import { AddEditNavContainer, AddEditViewProps } from './src/components/pages/AddEditView';
 import { NavigationContainer } from '@react-navigation/native';
 
 export type RootStackParamList = {
-  Birthdays: undefined;
-  AddEdit: undefined;
+  Birthdays: BirthdaysViewProps;
+  AddEdit: AddEditViewProps;
 }
 
 export const RootStackScreens = () => {
@@ -25,9 +25,7 @@ export const RootStackScreens = () => {
   return (
     <NavigationContainer>
       <RootStack.Navigator screenOptions={{ headerShown: false }}>
-        <RootStack.Screen
-          name="Birthdays"
-          component={BirthdaysNavContainer} />
+        <RootStack.Screen name="Birthdays" component={BirthdaysNavContainer} />
         <RootStack.Screen name="AddEdit" component={AddEditNavContainer} />
       </RootStack.Navigator>
     </NavigationContainer>
