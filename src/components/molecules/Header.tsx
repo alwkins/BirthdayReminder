@@ -37,20 +37,24 @@ export const Header = (props: HeaderProps) => {
           color={defaultTheme.color.white}>Birthdays</Text>
       </FlexBox>
       <Box position={'absolute'} left={sideMarginWidth} bottom={bottomGap}>
-        <TouchableOpacity activeOpacity={0.5} onPress={onLeftPress}>
-          <MaterialCommunityIcon
-            name={leftIcon}
-            size={27}
-            color={defaultTheme.color.white} />
-        </TouchableOpacity>
+        {leftIcon ?
+          (<TouchableOpacity activeOpacity={0.5} onPress={onLeftPress}>
+            <MaterialCommunityIcon
+              name={leftIcon}
+              size={27}
+              color={defaultTheme.color.white} />
+          </TouchableOpacity>)
+          : null}
       </Box>
       <Box position={'absolute'} right={sideMarginWidth} bottom={bottomGap}>
-        <TouchableOpacity activeOpacity={0.5} onPress={onRightPress}>
-          <MaterialCommunityIcon
-            name={rightIcon}
-            size={27}
-            color={defaultTheme.color.white} />
-        </TouchableOpacity>
+        {rightIcon ?
+          (<TouchableOpacity activeOpacity={0.5} onPress={onRightPress}>
+            <MaterialCommunityIcon
+              name={rightIcon}
+              size={27}
+              color={defaultTheme.color.white} />
+          </TouchableOpacity>)
+          : null}
       </Box>
     </FlexBox>
   )

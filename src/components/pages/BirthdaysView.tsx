@@ -11,6 +11,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import { birthdayEntry } from '../util';
 
 export const BirthdaysNavContainer = (props: NativeStackScreenProps<RootStackParamList, 'Birthdays'>) => {
   const { navigation, route } = props;
@@ -20,27 +21,13 @@ export const BirthdaysNavContainer = (props: NativeStackScreenProps<RootStackPar
 }
 
 export interface BirthdaysViewProps {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'Birthdays'>;
+  navigation?: NativeStackNavigationProp<RootStackParamList, 'Birthdays'>;
+  birthdays: Array<birthdayEntry>;
 }
-
 export const BirthdaysView = (props: BirthdaysViewProps) => {
-  const { navigation } = props;
-  const birthdayData = [
-    {
-      name: "Alsion Wadkins",
-      birthday: new Date("2021-10-31")
-    },
-    {
-      name: "Wollum Wadkins",
-      birthday: new Date("1992-11-26")
-    },
-    {
-      name: "Hunter Wadkins",
-      birthday: new Date("2011-12-15")
-    }
-  ]
+  const { navigation, birthdays } = props;
   const navToAdd = () => {
-    navigation.push('AddEdit')
+    if (navigation) { navigation.push('AddEdit') }
   }
   return (
     <View>
@@ -58,7 +45,7 @@ export const BirthdaysView = (props: BirthdaysViewProps) => {
             UPCOMING
           </Text>
         </Box>
-        {birthdayData.map(
+        {birthdays.map(
           (data, index) => (
             <BirthdayListItem
               name={data.name}

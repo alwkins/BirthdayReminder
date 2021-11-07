@@ -27,3 +27,23 @@ export const DAYS_PER_MONTH = [
   30,
   31
 ];
+
+export interface birthdayEntry {
+  name: string;
+  birthday: Date;
+}
+
+export const testBirthdayData: Array<birthdayEntry> = [
+  {
+    name: "Alsion Wadkins",
+    birthday: new Date("2021-10-31")
+  },
+  {
+    name: "Wollum Wadkins",
+    birthday: new Date("1992-11-26")
+  },
+  {
+    name: "Hunter Wadkins",
+    birthday: new Date("2011-12-15")
+  }
+]

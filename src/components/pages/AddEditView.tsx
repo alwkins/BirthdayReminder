@@ -8,11 +8,10 @@ import { defaultTheme } from '../defaultTheme';
 import { Header } from '../molecules/Header';
 import { Box, FlexBox } from '../styled-components/Box';
 import { Text } from '../styled-components/Text';
-import { MONTHS_SHORT, DAYS_PER_MONTH } from '../util';
+import { MONTHS_SHORT, DAYS_PER_MONTH, testBirthdayData } from '../util';
 import { BirthdayPicker } from '../molecules/BirthdayPicker';
 import { RootStackParamList } from '../../../App';
 import { NativeStackScreenProps, NativeStackNavigationProp } from '@react-navigation/native-stack';
-
 
 export const AddEditNavContainer = (props: NativeStackScreenProps<RootStackParamList, 'AddEdit'>) => {
   const { navigation, route } = props;
@@ -22,7 +21,7 @@ export const AddEditNavContainer = (props: NativeStackScreenProps<RootStackParam
 }
 
 export interface AddEditViewProps {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'AddEdit'>
+  navigation?: NativeStackNavigationProp<RootStackParamList, 'AddEdit'>
   contactEditing?: string;
 }
 
@@ -41,7 +40,10 @@ export const AddEditView = (props: AddEditViewProps) => {
     },
   }
   const navBack = () => {
-    navigation.push('Birthdays')
+    // TODO Add save new birthday here
+    if (navigation) {
+      navigation.push('Birthdays', { birthdays: testBirthdayData })
+    }
   }
   const sectionLabel = (labelText: string, labelColor: string) => (
     <Box marginLeft={marginLeft}>

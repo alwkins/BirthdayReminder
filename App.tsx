@@ -12,6 +12,7 @@ import {
 import { BirthdaysNavContainer, BirthdaysViewProps } from './src/components/pages/BirthdaysView';
 import { AddEditNavContainer, AddEditViewProps } from './src/components/pages/AddEditView';
 import { NavigationContainer } from '@react-navigation/native';
+import { birthdayEntry, testBirthdayData } from './src/components/util';
 
 export type RootStackParamList = {
   Birthdays: BirthdaysViewProps;
@@ -25,7 +26,7 @@ export const RootStackScreens = () => {
   return (
     <NavigationContainer>
       <RootStack.Navigator screenOptions={{ headerShown: false }}>
-        <RootStack.Screen name="Birthdays" component={BirthdaysNavContainer} />
+        <RootStack.Screen name="Birthdays" component={BirthdaysNavContainer} initialParams={{birthdays: testBirthdayData}} />
         <RootStack.Screen name="AddEdit" component={AddEditNavContainer} />
       </RootStack.Navigator>
     </NavigationContainer>
