@@ -11,8 +11,8 @@ import { TouchableOpacity } from 'react-native';
 
 export interface HeaderProps {
   text: string;
-  onRightPress?: () => void;
-  onLeftPress?: () => void;
+  onRightPress?: Function;
+  onLeftPress?: Function;
   leftIcon?: iconNames;
   rightIcon?: iconNames;
 }
