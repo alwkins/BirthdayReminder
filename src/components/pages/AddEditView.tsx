@@ -9,10 +9,16 @@ import { Header } from '../molecules/Header';
 import { Box, FlexBox } from '../styled-components/Box';
 import { Text } from '../styled-components/Text';
 import { MONTHS_SHORT, DAYS_PER_MONTH, testBirthdayData } from '../util';
-import { BirthdayPicker } from '../molecules/BirthdayPicker';
 import { RootStackParamList } from '../../../App';
 import { NativeStackScreenProps, NativeStackNavigationProp } from '@react-navigation/native-stack';
 import DataStorageStore from '../../store/dataStorageStore';
+import Toast from 'react-native-simple-toast';
+import DropDownPicker from 'react-native-dropdown-picker';
+
+const options = [
+  { value: 0, label: 'Jan' },
+  { value: 1, label: 'Feb' }
+];
 
 export const AddEditNavContainer = (props: NativeStackScreenProps<RootStackParamList, 'AddEdit'>) => {
   const { navigation, route } = props;
@@ -28,9 +34,17 @@ export interface AddEditViewProps {
 
 export const AddEditView = (props: AddEditViewProps) => {
   const { navigation, contactEditing } = props;
-  const [text, onChangeText] = React.useState(contactEditing);
+  const [text, setText] = React.useState(contactEditing);
+  const [month, setMonth] = React.useState(null);
   const dataStore = DataStorageStore.getInstance();
   const marginLeft = wp('3.5%')
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
+    {label: 'Apple', value: 'apple'},
+    {label: 'Banana', value: 'banana'}
+  ]);
+
   const styles = { // TODO Make font medium-large
     input: {
       height: 40,
@@ -42,11 +56,16 @@ export const AddEditView = (props: AddEditViewProps) => {
     },
   }
   const navBack = () => {
-    dataStore.addBirthday({name: text, birthday: new Date})
-    // TODO Add toast to say saved
+    if (text) {
+      dataStore.addBirthday({ name: text, birthday: new Date })
+      Toast.show('Birthday Saved', Toast.SHORT);
+    }
     if (navigation) {
       navigation.push('Birthdays')
     }
+  }
+  const handleMonthChange = (selectedOption) => {
+    console.log(selectedOption);
   }
   const sectionLabel = (labelText: string, labelColor: string) => (
     <Box marginLeft={marginLeft}>
@@ -65,11 +84,18 @@ export const AddEditView = (props: AddEditViewProps) => {
       {sectionLabel("Name", defaultTheme.color.plantGreen)}
       <TextInput
         style={styles.input}
-        onChangeText={onChangeText}
+        onChangeText={setText}
         value={text} />
       {sectionLabel("Birthday", defaultTheme.color.royalBlue)}
       <FlexBox flexDirection='row'>
-        <BirthdayPicker />
+        <DropDownPicker
+          open={open}
+          value={value}
+          items={items}
+          setOpen={setOpen}
+          setValue={setValue}
+          setItems={setItems}
+        />
       </FlexBox>
     </View>
   )
