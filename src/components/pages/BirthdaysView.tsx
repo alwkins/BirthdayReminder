@@ -11,7 +11,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import { birthdayEntry, getDaysBetweenDates, getDaysUntil, stripYear, todayAsDateDmy } from '../util';
+import { birthdayEntry, getDaysUntilYearWrapped } from '../util';
 import DataStorageStore from '../../store/dataStorageStore';
 
 export const BirthdaysNavContainer = (props: NativeStackScreenProps<RootStackParamList, 'Birthdays'>) => {
@@ -53,7 +53,7 @@ export const BirthdaysView = (props: BirthdaysViewProps) => {
               name={data.name}
               birthdayDay={data.birthday.day}
               birthdayMonth={data.birthday.month}
-              daysUntil={getDaysUntil(data.birthday)}
+              daysUntil={getDaysUntilYearWrapped(data.birthday)}
               key={index} />
           )
         )}

@@ -62,7 +62,7 @@ export const stripYear = (date: date) => {
   return date;
 }
 
-export const getDaysUntil = (untilDate: date) => {
+export const getDaysUntilYearWrapped = (untilDate: date) => {
   // Return days until date, if is negative date has already occurred this yr,
   // wrap around yr by adding 365 days
   const dateDifference = getDaysBetweenDates(todayAsDateDmy(), stripYear(untilDate));
