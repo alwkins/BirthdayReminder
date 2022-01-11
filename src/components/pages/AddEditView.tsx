@@ -67,7 +67,13 @@ export const AddEditView = (props: AddEditViewProps) => {
     if (text) {
       let dateSelected = new Date;
       dateSelected.setMonth(monthValue, (dayValue + 1));
-      dataStore.addBirthday({ name: text, birthday: dateSelected })
+      dataStore.addBirthday({
+        name: text,
+        birthday: {
+          month: (monthValue + 1),
+          day: (dayValue + 1),
+        }
+      })
       Toast.show('Birthday Saved', Toast.SHORT);
       console.log(dateSelected.toString())
     }

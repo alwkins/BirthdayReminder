@@ -6,19 +6,17 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import { getShortMonthStr } from '../util';
 
 export interface BirthdayListItemProps {
   name: string;
-  birthday: Date;
+  birthdayMonth: number;
+  birthdayDay: number;
+  daysUntil: number;
 }
 
 export const BirthdayListItem = (props: BirthdayListItemProps) => {
-  const { name, birthday } = props;
-  const today = new Date();
-  // TODO Write unit test
-  // TODO Add floor if want whole days
-  const birthdayThisYear = birthday.setFullYear(today.getFullYear());
-  const daysUntil = (birthdayThisYear.valueOf() - today.valueOf()) / 3600000 / 24; // valueOf() returns ms, convert to days
+  const { name, birthdayMonth, birthdayDay, daysUntil } = props;
   const edgeMargin = wp('0.3%')
   const sideBoxWidth = wp('17%')
   const middleBoxWidth = wp('100%') - 2 * sideBoxWidth
@@ -38,13 +36,13 @@ export const BirthdayListItem = (props: BirthdayListItemProps) => {
           fontFamily={defaultTheme.fontFamily.openSans}
           color={defaultTheme.color.teal}
           fontSize={defaultTheme.fontSize.sm}>
-          {birthday.toLocaleString('default', { month: 'short' }).toUpperCase()}
+          {getShortMonthStr(birthdayMonth).toUpperCase()}
         </Text>
         <Text
           fontFamily={defaultTheme.fontFamily.openSans}
           color={defaultTheme.color.teal}
           fontSize={defaultTheme.fontSize.lg}
-          fontWeight='800'>{birthday.getUTCDate()}
+          fontWeight='800'>{birthdayDay}
         </Text>
       </FlexBox>
 
@@ -73,7 +71,7 @@ export const BirthdayListItem = (props: BirthdayListItemProps) => {
           color={defaultTheme.color.lightGray}
           fontSize={defaultTheme.fontSize.lg}
           fontWeight='800'>
-            {daysUntil.toFixed(1)}
+            {daysUntil}
           </Text>
         <Text
           fontFamily={defaultTheme.fontFamily.openSans}

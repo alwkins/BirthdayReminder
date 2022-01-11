@@ -51,7 +51,9 @@ export const BirthdaysView = (props: BirthdaysViewProps) => {
           (data, index) => (
             <BirthdayListItem
               name={data.name}
-              birthday={data.birthday} 
+              birthdayDay={data.birthday.day}
+              birthdayMonth={data.birthday.month}
+              daysUntil={5}
               key={index} />
           )
         )}
