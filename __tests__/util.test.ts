@@ -1,9 +1,9 @@
 import {describe, expect, it } from '@jest/globals';
-import { getShortMonthStr, getDaysBetweenDates } from '../src/components/util';
+import { getShortMonthStr, getDaysBetweenDates, todayAsDateDmy, stripYear } from '../src/components/util';
 
 jest.disableAutomock();
 
-describe("Birthday utility functions", () => {
+describe("Birthday Utility Functions", () => {
 
   test("Get short month str for Jan", () => {
     expect(getShortMonthStr(1)).toBe('Jan');
@@ -32,6 +32,12 @@ describe("Birthday utility functions", () => {
   test("Get days between dates year included", () => {
     expect(getDaysBetweenDates(startRevWar, endRevWar)).toBe(2617)
   });
+  test("End date is before start date", () => {
+    expect(getDaysBetweenDates(endRevWar, startRevWar)).toBe(-2617);
+  })
+  test("Get days between dates, no days", () => {
+    expect(getDaysBetweenDates(startRevWar, startRevWar)).toBe(0);
+  })
 
   const startNoYrSimple = {
     month: 10, // Oct
@@ -70,7 +76,7 @@ describe("Birthday utility functions", () => {
     year: leapYear
   }
   const endLeap = {
-    ...startNoYrFeb,
+    ...endNoYrFeb,
     year: leapYear
   }
 
@@ -78,9 +84,23 @@ describe("Birthday utility functions", () => {
     expect(getDaysBetweenDates(startNoYrSimple, endNoYrSimple)).toBe(60);
   });
   test("Get days between dates, non-leap year", () => {
-    expect(getDaysBetweenDates(startNonLeap, endNonLeap)).toBe(29);
+    expect(getDaysBetweenDates(startNonLeap, endNonLeap)).toBe(28);
   });
   test("Get days between dates, leap year", () => {
-    expect(getDaysBetweenDates(startLeap, endLeap)).toBe(28);
+    expect(getDaysBetweenDates(startLeap, endLeap)).toBe(29);
   });
+
+  test("Strip year", () => {
+    expect(stripYear(startLeap)).toStrictEqual(startNoYrFeb);
+  })
+
+  /*
+  // Expected value will change daily, so disable from running every time
+  test("Get today as date day-month-year object", () => {
+      expect(todayAsDateDmy()).toStrictEqual({
+        day: 10,
+        month: 1,
+        year: 2022
+      })
+    }) */
 })
