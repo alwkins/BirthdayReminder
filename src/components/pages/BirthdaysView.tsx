@@ -29,7 +29,7 @@ export const BirthdaysView = (props: BirthdaysViewProps) => {
   const dataStore = DataStorageStore.getInstance();
   let birthdays: Array<birthdayEntry> = dataStore.getBirthdays(); 
   const navToAdd = () => {
-    if (navigation) { navigation.push('AddEdit') }
+    if (navigation) { navigation.push('AddEdit', {isNewEntry: true}) }
   }
   return (
     <View>

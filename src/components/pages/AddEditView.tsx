@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { TextInput, View } from 'react-native';
+import { TextInput, View, Button } from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -8,7 +8,7 @@ import { defaultTheme } from '../defaultTheme';
 import { Header } from '../molecules/Header';
 import { Box, FlexBox } from '../styled-components/Box';
 import { Text } from '../styled-components/Text';
-import { MONTHS_SHORT, DAYS_PER_MONTH, testBirthdayData } from '../util';
+import { MONTHS_SHORT, DAYS_PER_MONTH, testBirthdayData, validateDate, birthdayEntry } from '../util';
 import { RootStackParamList } from '../../../App';
 import { NativeStackScreenProps, NativeStackNavigationProp } from '@react-navigation/native-stack';
 import DataStorageStore from '../../store/dataStorageStore';
@@ -38,19 +38,22 @@ export const AddEditNavContainer = (props: NativeStackScreenProps<RootStackParam
 
 export interface AddEditViewProps {
   navigation?: NativeStackNavigationProp<RootStackParamList, 'AddEdit'>
-  contactEditing?: string;
+  isNewEntry: boolean; // New means Add, otherwise Edit
+  entryToEdit?: birthdayEntry;
 }
 
 export const AddEditView = (props: AddEditViewProps) => {
-  const { navigation, contactEditing } = props;
-  const [text, setText] = React.useState(contactEditing);
+  const { navigation, isNewEntry, entryToEdit } = props;
+  const [text, setText] = React.useState(entryToEdit?.name);
   const dataStore = DataStorageStore.getInstance();
   const marginLeft = wp('3.5%')
+
+  // For dropdown date selection
   const [monthOpen, setMonthOpen] = useState(false);
-  const [monthValue, setMonthValue] = useState(0);
+  const [monthValue, setMonthValue] = useState(isNewEntry ? 0 : entryToEdit?.birthday.month - 1); // Convert to 0-indexed
   const [monthItems, setMonthItems] = useState(monthOptions);
   const [dayOpen, setDayOpen] = useState(false);
-  const [dayValue, setDayValue] = useState(0);
+  const [dayValue, setDayValue] = useState(isNewEntry ? 0 : entryToEdit?.birthday.day - 1); // Convert to 0-indexed
   const [dayItems, setDayItems] = useState(dayOptions);
 
   const styles = { // TODO Make font medium-large
@@ -64,18 +67,18 @@ export const AddEditView = (props: AddEditViewProps) => {
     },
   }
   const navBack = () => {
+    const dataEntered = {
+      name: text,
+      birthday: {
+        month: (monthValue + 1),
+        day: (dayValue + 1),
+      }
+    }
+    // TODO Add date validation here
     if (text) {
-      let dateSelected = new Date;
-      dateSelected.setMonth(monthValue, (dayValue + 1));
-      dataStore.addBirthday({
-        name: text,
-        birthday: {
-          month: (monthValue + 1),
-          day: (dayValue + 1),
-        }
-      })
+      // Name and date valid
+      dataStore.addBirthday(dataEntered)
       Toast.show('Birthday Saved', Toast.SHORT);
-      console.log(dateSelected.toString())
     }
     if (navigation) {
       navigation.push('Birthdays')
@@ -93,7 +96,9 @@ export const AddEditView = (props: AddEditViewProps) => {
   )
   return (
     <View>
-      <Header text="Add Birthday" onRightPress={navBack} onLeftPress={navBack} leftIcon='chevron-left' />
+      <Header text={isNewEntry ? "Add Birthday" : "Edit Birthday"}
+      onLeftPress={navBack} 
+      leftIcon='chevron-left' />
       <FlexBox
         flexDirection='column'
         marginTop={hp('1.7%')}>
@@ -103,29 +108,36 @@ export const AddEditView = (props: AddEditViewProps) => {
           style={styles.input}
           onChangeText={setText}
           value={text} />
-      </FlexBox>
-      {sectionLabel("Birthday", defaultTheme.color.royalBlue)}
-      <FlexBox 
-        flexDirection='row'
-        marginLeft={wp('4%')}>
-        <DropDownPicker
-          open={monthOpen}
-          value={monthValue}
-          items={monthItems}
-          setOpen={setMonthOpen}
-          setValue={setMonthValue}
-          setItems={setMonthItems}
-          containerStyle={{ width: wp('30%'), paddingTop: hp('1.5%') , paddingRight: wp('3%') }}
-        />
-        <DropDownPicker
-          open={dayOpen}
-          value={dayValue}
-          items={dayItems}
-          setOpen={setDayOpen}
-          setValue={setDayValue}
-          setItems={setDayItems}
-          containerStyle={{ width: wp('28%'), paddingTop: hp('1.5%') }}
-        />
+        {sectionLabel("Birthday", defaultTheme.color.royalBlue)}
+        <FlexBox
+          flexDirection='row'
+          marginLeft={wp('4%')}>
+          <DropDownPicker
+            open={monthOpen}
+            value={monthValue}
+            items={monthItems}
+            setOpen={setMonthOpen}
+            setValue={setMonthValue}
+            setItems={setMonthItems}
+            containerStyle={{ width: wp('30%'), paddingTop: hp('1.5%'), paddingRight: wp('3%') }}
+          />
+          <DropDownPicker
+            open={dayOpen}
+            value={dayValue}
+            items={dayItems}
+            setOpen={setDayOpen}
+            setValue={setDayValue}
+            setItems={setDayItems}
+            containerStyle={{ width: wp('28%'), paddingTop: hp('1.5%') }}
+          />
+        </FlexBox>
+        {isNewEntry ?
+          null
+          :
+          (<Button
+            title="SAVE"
+            onPress={navBack}
+            color="#009432" />)}
       </FlexBox>
     </View>
   )

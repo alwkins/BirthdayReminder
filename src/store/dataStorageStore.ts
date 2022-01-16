@@ -1,4 +1,5 @@
 import { birthdayEntry, testBirthdayData } from "../components/util";
+import 'react-native-get-random-values'; // This must be before uuid import, see https://github.com/uuidjs/uuid/issues/514
 import { v4 as uuidv4 } from 'uuid';
 
 export default class DataStorageStore {
