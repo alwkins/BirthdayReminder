@@ -1,4 +1,5 @@
 import { birthdayEntry, testBirthdayData } from "../components/util";
+import { v4 as uuidv4 } from 'uuid';
 
 export default class DataStorageStore {
   private static instance: DataStorageStore;
@@ -12,6 +13,7 @@ export default class DataStorageStore {
   }
 
   loadBirthdays = async () => {
+    // GET
     this.birthdays = testBirthdayData;
   }
 
@@ -20,6 +22,23 @@ export default class DataStorageStore {
   }
 
   addBirthday = (newEntry: birthdayEntry) => {
-    this.birthdays.push(newEntry);
+    // POST
+    this.birthdays.push({
+      ...newEntry,
+      uuid: uuidv4()
+    });
+  }
+
+  deleteBirthday = (uuid: string) => {
+    // DELETE
+    // TODO store UUID indices in map order to optimize
+    return this.birthdays.find((birthday) => birthday.uuid === uuid)
+  }
+
+  replaceBirthday = (uuid: string, editedBirthday: birthdayEntry) => {
+    // PUT
+    const birthdayIndex = this.birthdays.findIndex((birthday) => birthday.uuid === uuid)
+    editedBirthday.uuid = uuid // Ensure uuid is preserved
+    this.birthdays[birthdayIndex] = editedBirthday
   }
 }

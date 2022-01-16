@@ -66,7 +66,7 @@ export const getDaysUntilYearWrapped = (untilDate: date) => {
   // Return days until date, if is negative date has already occurred this yr,
   // wrap around yr by adding 365 days
   const dateDifference = getDaysBetweenDates(todayAsDateDmy(), stripYear(untilDate));
-  if (dateDifference <= 0) {
+  if (dateDifference < 0) {
     return Math.abs(dateDifference) + 365
   }
   else {
@@ -77,6 +77,7 @@ export const getDaysUntilYearWrapped = (untilDate: date) => {
 export interface birthdayEntry {
   name: string;
   birthday: date;
+  uuid: string;
 }
 
 export interface date {
@@ -87,34 +88,47 @@ export interface date {
 
 export const testBirthdayData: Array<birthdayEntry> = [
   {
-    name: "Alsion Wadkins",
+    name: "United States",
     birthday: {
-      month: 1,
-      day: 1
-    }
+      month: 7,
+      day: 4
+    },
+    uuid: "test-uid-1"
   },
   {
-    name: "Wollum Wadkins",
+    name: "Rosa Parks",
     birthday: {
-      month: 11,
-      day: 26,
-      year: 1990
-    }
+      month: 2,
+      day: 4,
+      year: 1913
+    },
+    uuid: "test-uid-2"
   },
   {
-    name: "Hunter Wadkins",
+    name: "Marshall Mathers III",
     birthday: {
-      month: 6,
-      day: 15,
-      year: 2012
-    }
+      month: 10,
+      day: 17,
+      year: 1972
+    },
+    uuid: "test-uid-3"
   },
   {
-    name: "Franky Wadkins",
+    name: "Mary Putnam Jacobi",
     birthday: {
-      month: 9,
-      day: 11,
-      year: 2020
-    }
+      month: 8,
+      day: 31,
+      year: 1842
+    },
+    uuid: "test-uid-4"
+  },
+  {
+    name: "Sergey Bubka",
+    birthday: {
+      month: 12,
+      day: 4,
+      year: 1963
+    },
+    uuid: "test-uid-5"
   }
 ]
