@@ -1,4 +1,5 @@
 import React from 'react';
+import { TouchableOpacity } from 'react-native';
 import { defaultTheme } from '../defaultTheme';
 import { Box, FlexBox } from '../styled-components/Box';
 import { Text } from '../styled-components/Text';
@@ -6,21 +7,25 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import { getShortMonthStr } from '../util';
+import { getShortMonthStr, birthdayEntry } from '../util';
 
 export interface BirthdayListItemProps {
-  name: string;
-  birthdayMonth: number;
-  birthdayDay: number;
+  birthdayData: birthdayEntry;
   daysUntil: number;
+  onPress: (data: birthdayEntry) => void;
 }
 
 export const BirthdayListItem = (props: BirthdayListItemProps) => {
-  const { name, birthdayMonth, birthdayDay, daysUntil } = props;
+  const { birthdayData, daysUntil, onPress } = props;
   const edgeMargin = wp('0.3%')
   const sideBoxWidth = wp('17%')
   const middleBoxWidth = wp('100%') - 2 * sideBoxWidth
+  const handlePress = () => {
+    onPress(birthdayData);
+  }
   return (
+    <TouchableOpacity
+      onPress={handlePress}>
     <FlexBox
       flexDirection='row'
       borderBottomWidth='2px'
@@ -36,13 +41,13 @@ export const BirthdayListItem = (props: BirthdayListItemProps) => {
           fontFamily={defaultTheme.fontFamily.openSans}
           color={defaultTheme.color.teal}
           fontSize={defaultTheme.fontSize.sm}>
-          {getShortMonthStr(birthdayMonth).toUpperCase()}
+          {getShortMonthStr(birthdayData.birthday.month).toUpperCase()}
         </Text>
         <Text
           fontFamily={defaultTheme.fontFamily.openSans}
           color={defaultTheme.color.teal}
           fontSize={defaultTheme.fontSize.lg}
-          fontWeight='800'>{birthdayDay}
+          fontWeight='800'>{birthdayData.birthday.day}
         </Text>
       </FlexBox>
 
@@ -55,7 +60,7 @@ export const BirthdayListItem = (props: BirthdayListItemProps) => {
         <Text
           fontSize={defaultTheme.fontSize.m}
           color={defaultTheme.color.darkGray}>
-          {name}
+          {birthdayData.name}
       </Text>
       </FlexBox>
 
@@ -82,5 +87,6 @@ export const BirthdayListItem = (props: BirthdayListItemProps) => {
       </FlexBox>
       
     </FlexBox>
+    </TouchableOpacity>
   );
 }

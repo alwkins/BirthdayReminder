@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { TextInput, View, Button } from 'react-native';
+import { TextInput, View, Button, TouchableOpacity } from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -65,21 +65,47 @@ export const AddEditView = (props: AddEditViewProps) => {
       borderColor: defaultTheme.color.lightGray,
       padding: 10,
     },
+    saveButton: {
+      marginRight: wp('3%'),
+      marginLeft: wp('3%'),
+      marginTop: (dayOpen || monthOpen) ? hp('25%') : hp('3%'), // Move down if dropdowns open, TODO Make this cleaner
+      paddingTop: 10,
+      paddingBottom: 10,
+      backgroundColor: '#1E6738',
+      borderRadius: 10,
+      borderWidth: 1,
+      borderColor: '#009432',
+    }
   }
-  const navBack = () => {
-    const dataEntered = {
+
+  const buildBirthdayEntered = (): birthdayEntry => {
+    return {
       name: text,
       birthday: {
         month: (monthValue + 1),
         day: (dayValue + 1),
       }
-    }
+    };
+  }
+
+  const navBack = () => {
     // TODO Add date validation here
-    if (text) {
-      // Name and date valid
-      dataStore.addBirthday(dataEntered)
-      Toast.show('Birthday Saved', Toast.SHORT);
+    if (isNewEntry) {
+      if (text) {
+        // Name and date valid
+        dataStore.addBirthday(buildBirthdayEntered())
+        Toast.show('Birthday Saved', Toast.SHORT);
+      }
     }
+    if (navigation) {
+      navigation.push('Birthdays')
+    }
+    // TODO Show "Are you sure you want to disard changes?" pop-up
+  }
+  const saveChanges = () => {
+    console.log(entryToEdit)
+    console.log(buildBirthdayEntered())
+    dataStore.replaceBirthday(entryToEdit.uuid, buildBirthdayEntered())
     if (navigation) {
       navigation.push('Birthdays')
     }
@@ -134,10 +160,12 @@ export const AddEditView = (props: AddEditViewProps) => {
         {isNewEntry ?
           null
           :
-          (<Button
-            title="SAVE"
-            onPress={navBack}
-            color="#009432" />)}
+          (<TouchableOpacity
+            style={styles.saveButton} // TODO Put styles somewhere clean
+            onPress={saveChanges}
+            underlayColor='#fff'>
+            <Text color="#FFFFFF" textAlign="center">SAVE</Text>
+          </TouchableOpacity>)}
       </FlexBox>
     </View>
   )

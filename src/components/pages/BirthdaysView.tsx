@@ -31,6 +31,12 @@ export const BirthdaysView = (props: BirthdaysViewProps) => {
   const navToAdd = () => {
     if (navigation) { navigation.push('AddEdit', {isNewEntry: true}) }
   }
+  const navToEdit = (entryToEdit: birthdayEntry) => {
+    if (navigation) { navigation.push('AddEdit', {
+      entryToEdit: entryToEdit,
+      isNewEntry: false,
+    })}
+  }
   return (
     <View>
       <Header text="Birthdays" onRightPress={navToAdd} leftIcon='cog' rightIcon='plus' />
@@ -50,10 +56,9 @@ export const BirthdaysView = (props: BirthdaysViewProps) => {
         {birthdays.map(
           (data, index) => (
             <BirthdayListItem
-              name={data.name}
-              birthdayDay={data.birthday.day}
-              birthdayMonth={data.birthday.month}
+              birthdayData={data}
               daysUntil={getDaysUntilYearWrapped(data.birthday)}
+              onPress={navToEdit}
               key={index} />
           )
         )}
