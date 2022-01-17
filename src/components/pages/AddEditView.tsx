@@ -103,8 +103,6 @@ export const AddEditView = (props: AddEditViewProps) => {
     // TODO Show "Are you sure you want to disard changes?" pop-up
   }
   const saveChanges = () => {
-    console.log(entryToEdit)
-    console.log(buildBirthdayEntered())
     dataStore.replaceBirthday(entryToEdit.uuid, buildBirthdayEntered())
     if (navigation) {
       navigation.push('Birthdays')

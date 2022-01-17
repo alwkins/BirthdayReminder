@@ -2,19 +2,23 @@
 
 An iOS app for tracking birthdays of friends and family.
 
-<p float="left">
-<img src="https://user-images.githubusercontent.com/75457552/148874448-9960c6e9-0f4c-44f2-ba7c-195e6dd6c1cb.png" width="240" />
-<img src="https://user-images.githubusercontent.com/75457552/148874454-7f9fc2dc-f201-4705-82ff-61c439b77b1e.png" width="240" />
-<img src="https://user-images.githubusercontent.com/75457552/148874457-6cb03bd0-9e36-47d1-98dd-315fa4d1d253.png" width="240" />
-</p>
-
 ## Current Features
 
-* View demo birthdays
-* Add new birthdays
-* Day countdown until each birthday is displayed
+### Add New Birthdays
+<p float="left">
+<img src="https://user-images.githubusercontent.com/75457552/149694072-82e4b5b1-1fb7-4d2d-b5fe-de98520e9360.png" width="240" />
+<img src="https://user-images.githubusercontent.com/75457552/149694086-ee034e4b-4d01-4433-9303-e1411b4f6f78.png" width="240" />
+<img src="https://user-images.githubusercontent.com/75457552/149694090-f4494ceb-ecfa-47ce-bf85-719350390b82.png" width="240" />
+</p>
+
+### Edit Saved Birthdays
+<p float="left">
+<img src="https://user-images.githubusercontent.com/75457552/149694091-33a275f3-9494-4f2c-b6bb-ee6e9fa7068d.png" width="240" />
+<img src="https://user-images.githubusercontent.com/75457552/149694093-a0e6aef8-ed8f-4be0-992b-bf9cf46dc4c6.png" width="240" />
+</p>
 
 ## Built With
 
 * React Native
 * TypeScript
+* Jest
